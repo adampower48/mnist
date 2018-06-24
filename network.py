@@ -35,6 +35,8 @@ class Network:
         d_weights[-1] = np.dot(self.layers[-2].T, d_out)
 
         for i in range(len(self.layers) - 2, 0, -1):
+            # print(i)
+            # print(d_out.shape, self.weights[i].T.shape, sigmoid_derivative(self.layers[i]).shape)
             d_weights[i - 1] = np.dot(self.layers[i - 1].T,
                                       np.dot(d_out, self.weights[i].T) * sigmoid_derivative(self.layers[i]))
 
@@ -72,6 +74,7 @@ if __name__ == '__main__':
     y = np.array([[0], [1], [1], [0]])
 
     nn = Network(X, y, [3, 4, 1])
+    # todo: Fix broken backprop for more than 1 hidden layer.
 
     for i in range(10000):
         nn.feedforward()
